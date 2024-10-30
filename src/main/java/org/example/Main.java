@@ -1,5 +1,13 @@
 package org.example;
 
+import org.example.comparators.StudentComparator;
+import org.example.enums.StudentComparatorType;
+import org.example.enums.StudyProfile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) {
         University university1 = new University("Medicine University of Kazan", "101", StudyProfile.MEDICINE, "MUK", 1996);
@@ -15,18 +23,17 @@ public class Main {
         Student student5 = new Student(4F, 2, "Ekaterina Normikova", "101");
         Student student6 = new Student(4.5F, 2, "Daria Palova", "101");
         Student student7 = new Student(4.87F, 2, "Polina Orlova", "101");
-        System.out.println(university1);
-        System.out.println(university2);
-        System.out.println(university3);
-        System.out.println(university4);
-        System.out.println(university5);
-        System.out.println(student);
-        System.out.println(student1);
-        System.out.println(student2);
-        System.out.println(student3);
-        System.out.println(student4);
-        System.out.println(student5);
-        System.out.println(student6);
-        System.out.println(student7);
+        List<Student> students = new ArrayList<>();
+        students.add(student);
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+        students.add(student4);
+        students.add(student5);
+        students.add(student6);
+        students.add(student7);
+        StudentComparator avgScoreComparator = ComparatorFactory.getStudentComparator(StudentComparatorType.AVGEXAMSCORE);
+        List<Student> sortedStudents = students.stream().sorted(avgScoreComparator).collect(Collectors.toList());
+        sortedStudents.forEach(System.out::println);
     }
 }
